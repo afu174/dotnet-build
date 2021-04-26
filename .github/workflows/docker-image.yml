@@ -16,3 +16,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - name: Login to Podman
+      id: login
+      run:  |
+         docker login quay.io -u ${{ secrets.docker_user }} -p ${{ secrets.docker_password }}
+    - name: Build Image using Podman
+      run: |
+         docker build . -t quay.io/neinnovationorg/dotnetframework:main
+    - name: Push Image to Github Registry
+      run: |
+          docker push quay.io/neinnovationorg/dotnetframework:main
