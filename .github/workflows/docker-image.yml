@@ -20,7 +20,7 @@ jobs:
          docker login quay.io -u ${{ secrets.docker_user }} -p ${{ secrets.docker_password }}
     - name: Build Image using Podman
       run: |
-         docker build . --file Dockerfile -t quay.io/neinnovationorg/dotnetframework:main
+         docker pull quay.io/neinnovationorg/dotnetframework:main
     - name: Push Image to Github Registry
       run: |
-          docker push quay.io/neinnovationorg/dotnetframework:main
+          docker run quay.io/neinnovationorg/dotnetframework:main
